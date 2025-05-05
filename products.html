@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | Casio Timepieces</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .products-container {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 0 2rem;
+        }
+
+        .products-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .products-header h1 {
+            font-family: 'Playfair Display', serif;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .products-header p {
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            font-family: 'Playfair Display', serif;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-category {
+            color: #9c8a4d;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            background: #9c8a4d;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+
+        .add-to-cart:hover {
+            background: #b39b5d;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 300px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .category-filter {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            background: #f5f5f5;
+            color: #333;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: #9c8a4d;
+            color: white;
+        }
+
+        .sort-filter {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sort-filter select {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            background: white;
+        }
+
+        .no-products {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .no-products i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .wishlist-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .wishlist-btn i {
+            font-size: 1.2rem;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+        
+        .wishlist-btn .wishlist-active {
+            color: #ff5252;
+        }
+
+        @media (max-width: 768px) {
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                max-width: 100%;
+            }
+            
+            .category-filter {
+                justify-content: center;
+            }
+            
+            .sort-filter {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/nostalgia-casio-logo.png" alt="Nostalgia Casio">
+                </a>
+            </div>
+            <div class="nav-links">
+            </div>
+            <div class="nav-icons">
+                <a href="#search"><i class="fas fa-search"></i></a>
+                <a href="wishlist.html"><i class="fas fa-heart"></i></a>
+                <a href="login.html" class="auth-link">Sign In</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="products-container">
+        <div class="products-header">
+            <h1>Our Collection</h1>
+            <p>Discover our premium selection of Casio timepieces, crafted with precision and elegance.</p>
+        </div>
+        
+        <div class="filters">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search products...">
+            </div>
+            
+            <div class="category-filter">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="chronograph">Chronograph</button>
+                <button class="category-btn" data-category="digital">Digital</button>
+                <button class="category-btn" data-category="analog">Analog</button>
+                <button class="category-btn" data-category="sports">Sports</button>
+                <button class="category-btn" data-category="luxury">Luxury</button>
+            </div>
+            
+            <div class="sort-filter">
+                <label for="sortSelect">Sort by:</label>
+                <select id="sortSelect">
+                    <option value="default">Default</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="name-asc">Name: A to Z</option>
+                    <option value="name-desc">Name: Z to A</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be loaded dynamically -->
+        </div>
+        
+        <div class="no-products" id="noProducts" style="display: none;">
+            <i class="fas fa-search"></i>
+            <h3>No products found</h3>
+            <p>Try adjusting your search or filter criteria</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Premium Casio timepieces for the modern individual.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: ajoysarkar1008@email.com</p>
+                <p>Phone: 01611230127</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/nostalshop"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Casio Timepieces. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Load products from localStorage or use default products
+        function getProducts() {
+            // Try to get products from localStorage
+            const storedProducts = localStorage.getItem('products');
+            
+            if (storedProducts) {
+                return JSON.parse(storedProducts);
+            }
+            
+            // Default products if none in localStorage
+            return [
+                {
+                    id: 1,
+                    name: 'Premium Chronograph',
+                    category: 'Chronograph',
+                    price: 299.99,
+                    images: ['https://via.placeholder.com/300x400']
+                },
+                {
+                    id: 2,
+                    name: 'Classic Digital',
+                    category: 'Digital',
+                    price: 149.99,
+                    images: ['https://via.placeholder.com/300x400']
+                },
+                {
+                    id: 3,
+                    name: 'Luxury Analog',
+                    category: 'Analog',
+                    price: 199.99,
+                    images: ['https://via.placeholder.com/300x400']
+                }
+            ];
+        }
+
+        // Load wish list from localStorage
+        function getWishlist() {
+            const storedWishlist = localStorage.getItem('wishlist');
+            return storedWishlist ? JSON.parse(storedWishlist) : [];
+        }
+        
+        // Save wish list to localStorage
+        function saveWishlist(wishlist) {
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        }
+
+        // Filter and sort products
+        function filterAndSortProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
+            const sortValue = document.getElementById('sortSelect').value;
+            
+            let products = getProducts();
+            
+            // Filter by search term
+            if (searchTerm) {
+                products = products.filter(product => 
+                    product.name.toLowerCase().includes(searchTerm) || 
+                    (product.description && product.description.toLowerCase().includes(searchTerm))
+                );
+            }
+            
+            // Filter by category
+            if (activeCategory !== 'all') {
+                products = products.filter(product => 
+                    product.category && product.category.toLowerCase() === activeCategory
+                );
+            }
+            
+            // Sort products
+            switch (sortValue) {
+                case 'price-low':
+                    products.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    products.sort((a, b) => b.price - a.price);
+                    break;
+                case 'name-asc':
+                    products.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'name-desc':
+                    products.sort((a, b) => b.name.localeCompare(a.name));
+                    break;
+                default:
+                    // Default sorting (by ID)
+                    products.sort((a, b) => a.id - b.id);
+            }
+            
+            return products;
+        }
+
+        // Display products
+        function displayProducts(products) {
+            const productsGrid = document.getElementById('productsGrid');
+            const noProducts = document.getElementById('noProducts');
+            const wishlist = getWishlist();
+            
+            productsGrid.innerHTML = '';
+            
+            if (products.length === 0) {
+                productsGrid.style.display = 'none';
+                noProducts.style.display = 'block';
+                return;
+            }
+            
+            productsGrid.style.display = 'grid';
+            noProducts.style.display = 'none';
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                
+                // Use the first image from the product's images array, or fallback to a placeholder
+                const imageUrl = product.images && product.images.length > 0 
+                    ? product.images[0] 
+                    : 'https://via.placeholder.com/300x400';
+                
+                // Check if product is in wishlist
+                const isInWishlist = wishlist.includes(product.id);
+                const wishlistIconClass = isInWishlist ? 'fas fa-heart wishlist-active' : 'far fa-heart';
+                
+                productCard.innerHTML = `
+                    <div class="product-image">
+                        <img src="${imageUrl}" alt="${product.name}">
+                        <button class="wishlist-btn" onclick="toggleWishlist(${product.id})">
+                            <i class="${wishlistIconClass}"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">${product.category || 'Uncategorized'}</div>
+                        <h3>${product.name}</h3>
+                        <p class="price">$${product.price.toFixed(2)}</p>
+                    </div>
+                `;
+                
+                productsGrid.appendChild(productCard);
+            });
+        }
+
+        // Toggle wish list
+        function toggleWishlist(productId) {
+            let wishlist = getWishlist();
+            const index = wishlist.indexOf(productId);
+            
+            if (index === -1) {
+                // Add to wishlist
+                wishlist.push(productId);
+                saveWishlist(wishlist);
+                showNotification('Product added to wish list!');
+            } else {
+                // Remove from wishlist
+                wishlist.splice(index, 1);
+                saveWishlist(wishlist);
+                showNotification('Product removed from wish list');
+            }
+            
+            // Update wishlist icon
+            updateWishlistIcon(productId);
+            // Update wishlist icon in navbar
+            updateWishlistNavIcon();
+        }
+        
+        // Update wishlist icon
+        function updateWishlistIcon(productId) {
+            const wishlist = getWishlist();
+            const isInWishlist = wishlist.includes(productId);
+            const wishlistBtn = document.querySelector(`.wishlist-btn[onclick="toggleWishlist(${productId})"] i`);
+            
+            if (wishlistBtn) {
+                wishlistBtn.className = isInWishlist ? 'fas fa-heart wishlist-active' : 'far fa-heart';
+            }
+        }
+        
+        // Update wishlist icon in navbar
+        function updateWishlistNavIcon() {
+            const wishlist = getWishlist();
+            const wishlistIcon = document.querySelector('.fa-heart');
+            
+            if (wishlistIcon && wishlist.length > 0) {
+                wishlistIcon.style.color = '#ff5252';
+            } else if (wishlistIcon) {
+                wishlistIcon.style.color = '#333';
+            }
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            // Add styles for notification
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.right = '20px';
+            notification.style.background = '#9c8a4d';
+            notification.style.color = 'white';
+            notification.style.padding = '1rem 2rem';
+            notification.style.borderRadius = '5px';
+            notification.style.animation = 'slideIn 0.5s ease-out';
+
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.5s ease-out';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 3000);
+        }
+
+        // Add animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Display initial products
+            displayProducts(filterAndSortProducts());
+            
+            // Update wishlist icon in navbar
+            updateWishlistNavIcon();
+            
+            // Add event listeners for filters
+            document.getElementById('searchInput').addEventListener('input', () => {
+                displayProducts(filterAndSortProducts());
+            });
+            
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active button
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Update products
+                    displayProducts(filterAndSortProducts());
+                });
+            });
+            
+            document.getElementById('sortSelect').addEventListener('change', () => {
+                displayProducts(filterAndSortProducts());
+            });
+        });
+    </script>
+</body>
+</html> 

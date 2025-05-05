@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casio Timepieces | Premium Watches</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Product Details Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 1000px;
+            margin: 50px auto;
+            border-radius: 10px;
+            position: relative;
+            animation: modalFade 0.3s ease-in-out;
+        }
+
+        @keyframes modalFade {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .product-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .product-gallery {
+            position: relative;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .product-category {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .price-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .total-price {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        .stock-status {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            margin: 20px 0;
+        }
+
+        .in-stock { background: #e8f5e9; color: #2e7d32; }
+        .low-stock { background: #fff3e0; color: #ef6c00; }
+        .out-stock { background: #ffebee; color: #c62828; }
+
+        .description-section {
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .features-list li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features-list i {
+            color: #4caf50;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .action-button {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .buy-now {
+            background: #9c8a4d;
+            color: white;
+        }
+
+        .buy-now:hover {
+            background: #8a7a44;
+        }
+
+        .add-cart {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .add-cart:hover {
+            background: #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            .product-details {
+                grid-template-columns: 1fr;
+            }
+
+            .main-image {
+                height: 300px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/nostalgia-casio-logo.png" alt="Nostalgia Casio">
+                </a>
+            </div>
+            <div class="nav-links">
+            </div>
+            <div class="nav-icons">
+                <a href="#search"><i class="fas fa-search"></i></a>
+                <a href="wishlist.html"><i class="fas fa-heart"></i></a>
+                <a href="login.html" class="auth-link">Sign In</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Timeless Elegance</h1>
+            <p>Discover our premium collection of Casio timepieces</p>
+            <a href="#collection" class="cta-button">Explore Collection</a>
+        </div>
+    </header>
+
+    <section class="featured-products">
+        <h2>Featured Timepieces</h2>
+        <div class="product-grid" id="productGrid">
+            <!-- Products will be loaded dynamically -->
+        </div>
+    </section>
+
+    <!-- Product Details Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <div class="product-details">
+                <div class="product-gallery">
+                    <img id="modalMainImage" src="" alt="" class="main-image">
+                </div>
+                <div class="product-info">
+                    <h1 id="modalTitle" class="product-title"></h1>
+                    <div id="modalCategory" class="product-category"></div>
+                    
+                    <div class="price-section">
+                        <div class="price-row">
+                            <span>Base Price:</span>
+                            <span id="modalBasePrice"></span>
+                        </div>
+                        <div class="price-row">
+                            <span>Tax Rate:</span>
+                            <span id="modalTaxRate"></span>
+                        </div>
+                        <div class="price-row">
+                            <span>Tax Amount:</span>
+                            <span id="modalTaxAmount"></span>
+                        </div>
+                        <div class="price-row total-price">
+                            <span>Total Price:</span>
+                            <span id="modalTotalPrice"></span>
+                        </div>
+                    </div>
+
+                    <div id="modalStock" class="stock-status"></div>
+                    
+                    <div class="description-section">
+                        <h3>Description</h3>
+                        <p id="modalDescription"></p>
+                    </div>
+                    
+                    <div class="features-section">
+                        <h3>Features</h3>
+                        <ul id="modalFeatures" class="features-list"></ul>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="action-button buy-now" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdPIzouo7olAW9_1V_LBU83y0RGJnQ0NhA9rUUfxE09iUEuWA/viewform?usp=sharing', '_blank')">
+                            <i class="fas fa-shopping-bag"></i>
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Premium Casio timepieces for the modern individual.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: ajoysarkar1008@email.com</p>
+                <p>Phone: 01611230127</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/nostalshop"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Casio Timepieces. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Load products from localStorage
+        function loadProducts() {
+            const products = JSON.parse(localStorage.getItem('products') || '[]');
+            const productGrid = document.getElementById('productGrid');
+            productGrid.innerHTML = '';
+
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.images[0] || 'https://via.placeholder.com/300x400'}" 
+                             alt="${product.name}"
+                             onclick="showProductDetails(${product.id})"
+                             style="cursor: pointer;">
+                    </div>
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <p class="price">${product.currency} ${product.price}</p>
+                    </div>
+                `;
+                productGrid.appendChild(productCard);
+            });
+        }
+
+        // Show product details in modal
+        function showProductDetails(productId) {
+            const products = JSON.parse(localStorage.getItem('products') || '[]');
+            const product = products.find(p => p.id === productId);
+            
+            if (!product) return;
+
+            // Update modal content
+            document.getElementById('modalMainImage').src = product.images[0] || 'https://via.placeholder.com/500';
+            document.getElementById('modalTitle').textContent = product.name;
+            document.getElementById('modalCategory').textContent = product.category;
+            document.getElementById('modalBasePrice').textContent = `${product.currency} ${product.price.toFixed(2)}`;
+            document.getElementById('modalTaxRate').textContent = `${product.taxRate}%`;
+            
+            const taxAmount = product.price * (product.taxRate / 100);
+            document.getElementById('modalTaxAmount').textContent = `${product.currency} ${taxAmount.toFixed(2)}`;
+            document.getElementById('modalTotalPrice').textContent = product.totalPrice;
+
+            // Update stock status
+            const stockStatus = document.getElementById('modalStock');
+            if (product.stock > 10) {
+                stockStatus.className = 'stock-status in-stock';
+                stockStatus.textContent = `In Stock (${product.stock} units)`;
+            } else if (product.stock > 0) {
+                stockStatus.className = 'stock-status low-stock';
+                stockStatus.textContent = `Low Stock (${product.stock} units)`;
+            } else {
+                stockStatus.className = 'stock-status out-stock';
+                stockStatus.textContent = 'Out of Stock';
+            }
+
+            document.getElementById('modalDescription').textContent = product.description || 'No description available';
+
+            // Update features list
+            const featuresList = document.getElementById('modalFeatures');
+            featuresList.innerHTML = '';
+            if (product.features) {
+                const features = product.features.split(',').map(f => f.trim());
+                features.forEach(feature => {
+                    if (feature) {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<i class="fas fa-check-circle"></i> ${feature}`;
+                        featuresList.appendChild(li);
+                    }
+                });
+            }
+
+            // Show modal
+            document.getElementById('productModal').style.display = 'block';
+        }
+
+        // Close modal
+        document.getElementById('closeModal').addEventListener('click', () => {
+            document.getElementById('productModal').style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('productModal');
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Load products when page loads
+        window.addEventListener('load', loadProducts);
+    </script>
+</body>
+</html> 

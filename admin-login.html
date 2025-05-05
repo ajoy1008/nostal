@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Casio Timepieces</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: #f5f5f5;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h1 {
+            color: #1a1a1a;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: #666;
+            margin: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #9c8a4d;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 1rem;
+            background: #9c8a4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login-button:hover {
+            background: #b39b5d;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #d32f2f;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .back-to-site {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .back-to-site a {
+            color: #9c8a4d;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .back-to-site a:hover {
+            color: #b39b5d;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Admin Login</h1>
+            <p>Enter your credentials to access the admin panel</p>
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            Invalid username or password
+        </div>
+
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit" class="login-button">Login</button>
+        </form>
+
+        <div class="back-to-site">
+            <a href="index.html">← Back to Website</a>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // For demo purposes, using a simple check
+            // In a real application, this should be handled securely on the server
+            if (username === 'admin' && password === 'admin123') {
+                // Set authentication flag
+                localStorage.setItem('adminAuthenticated', 'true');
+                // Redirect to admin dashboard
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                // Show error message
+                const errorMessage = document.getElementById('errorMessage');
+                errorMessage.style.display = 'block';
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+            }
+            
+            return false;
+        }
+    </script>
+</body>
+</html> 

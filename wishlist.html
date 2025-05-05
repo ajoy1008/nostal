@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wish List | Casio Timepieces</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .wishlist-container {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 0 2rem;
+        }
+
+        .wishlist-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .wishlist-header h1 {
+            font-family: 'Playfair Display', serif;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .wishlist-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .wishlist-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .wishlist-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .wishlist-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .wishlist-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .wishlist-item:hover .wishlist-image img {
+            transform: scale(1.05);
+        }
+
+        .wishlist-info {
+            padding: 1.5rem;
+        }
+
+        .wishlist-info h3 {
+            font-family: 'Playfair Display', serif;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .wishlist-category {
+            color: #9c8a4d;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .wishlist-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .wishlist-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .add-to-cart-btn {
+            background: #9c8a4d;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            flex: 1;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #b39b5d;
+        }
+
+        .remove-from-wishlist {
+            background: #f5f5f5;
+            color: #ff5252;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .remove-from-wishlist:hover {
+            background: #ffebee;
+        }
+
+        .empty-wishlist {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .empty-wishlist i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+
+        .empty-wishlist h3 {
+            font-family: 'Playfair Display', serif;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .continue-shopping {
+            display: inline-block;
+            background: #9c8a4d;
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 1.5rem;
+            transition: background 0.3s ease;
+        }
+
+        .continue-shopping:hover {
+            background: #b39b5d;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>CASIO</h1>
+            </div>
+            <div class="nav-links">
+            </div>
+            <div class="nav-icons">
+                <a href="#search"><i class="fas fa-search"></i></a>
+                <a href="wishlist.html" class="active"><i class="fas fa-heart"></i></a>
+                <a href="login.html" class="auth-link">Sign In</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="wishlist-container">
+        <div class="wishlist-header">
+            <h1>Your Wish List</h1>
+        </div>
+        
+        <div class="wishlist-content" id="wishlistContent">
+            <!-- Wish list items will be loaded dynamically -->
+        </div>
+        
+        <div class="empty-wishlist" id="emptyWishlist" style="display: none;">
+            <i class="fas fa-heart"></i>
+            <h3>Your wish list is empty</h3>
+            <p>Save items you love for later by clicking the heart icon.</p>
+            <a href="products.html" class="continue-shopping">Continue Shopping</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Premium Casio timepieces for the modern individual.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: info@casio.com</p>
+                <p>Phone: +1 (555) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Casio Timepieces. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Load products from localStorage
+        function getProducts() {
+            const storedProducts = localStorage.getItem('products');
+            return storedProducts ? JSON.parse(storedProducts) : [];
+        }
+        
+        // Load wish list from localStorage
+        function getWishlist() {
+            const storedWishlist = localStorage.getItem('wishlist');
+            return storedWishlist ? JSON.parse(storedWishlist) : [];
+        }
+        
+        // Save wish list to localStorage
+        function saveWishlist(wishlist) {
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        }
+        
+        // Update wish list display
+        function updateWishlist() {
+            const wishlist = getWishlist();
+            const wishlistContent = document.getElementById('wishlistContent');
+            const emptyWishlist = document.getElementById('emptyWishlist');
+            
+            // Clear wish list content
+            wishlistContent.innerHTML = '';
+            
+            if (wishlist.length === 0) {
+                // Show empty wish list message
+                wishlistContent.style.display = 'none';
+                emptyWishlist.style.display = 'block';
+                return;
+            }
+            
+            // Show wish list items
+            wishlistContent.style.display = 'grid';
+            emptyWishlist.style.display = 'none';
+            
+            // Add each item to the wish list
+            wishlist.forEach((productId, index) => {
+                const products = getProducts();
+                const product = products.find(p => p.id === productId);
+                
+                if (product) {
+                    const wishlistItem = document.createElement('div');
+                    wishlistItem.className = 'wishlist-item';
+                    
+                    // Use the first image from the product's images array, or fallback to a placeholder
+                    const imageUrl = product.images && product.images.length > 0 
+                        ? product.images[0] 
+                        : 'https://via.placeholder.com/300x400';
+                    
+                    wishlistItem.innerHTML = `
+                        <div class="wishlist-image">
+                            <img src="${imageUrl}" alt="${product.name}">
+                        </div>
+                        <div class="wishlist-info">
+                            <div class="wishlist-category">${product.category || 'Uncategorized'}</div>
+                            <h3>${product.name}</h3>
+                            <p class="wishlist-price">$${product.price.toFixed(2)}</p>
+                            <div class="wishlist-actions">
+                                <button class="remove-from-wishlist" onclick="removeFromWishlist(${product.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    wishlistContent.appendChild(wishlistItem);
+                }
+            });
+        }
+        
+        // Add to cart functionality
+        function addToCart(productId) {
+            const products = getProducts();
+            const product = products.find(p => p.id === productId);
+            
+            if (product) {
+                // Get existing cart or initialize empty array
+                let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                
+                // Add product to cart
+                cart.push(product);
+                
+                // Save cart to localStorage
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Show notification
+                showNotification('Product added to cart!');
+            }
+        }
+        
+        // Remove from wish list
+        function removeFromWishlist(productId) {
+            let wishlist = getWishlist();
+            wishlist = wishlist.filter(id => id !== productId);
+            saveWishlist(wishlist);
+            updateWishlist();
+            showNotification('Product removed from wish list');
+        }
+        
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            // Add styles for notification
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.right = '20px';
+            notification.style.background = '#9c8a4d';
+            notification.style.color = 'white';
+            notification.style.padding = '1rem 2rem';
+            notification.style.borderRadius = '5px';
+            notification.style.animation = 'slideIn 0.5s ease-out';
+
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.5s ease-out';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 3000);
+        }
+        
+        // Add animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            updateWishlist();
+        });
+    </script>
+</body>
+</html> 
